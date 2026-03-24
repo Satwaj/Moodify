@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import FaceExpression from "./features/Expressions/components/FaceExpression";
 
-const App = () => {
-  const [count, setCount] = useState(0);
+import FaceExpression from "./features/Expressions/components/FaceExpression";
+import { RouterProvider } from "react-router"
+import { router } from "./app.routes"
+import "./features/shared/styles/global.scss"
+
+function App  () {
+  
 
   return (
-    <div>
-      <FaceExpression />
-    </div>
+    <RouterProvider router={router} />
   );
 };
 
