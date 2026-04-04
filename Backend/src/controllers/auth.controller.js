@@ -107,16 +107,16 @@ async function getMe(req,res){
 
   const user = await userModel.findById(req.user.id)
 
-  res.status(200).json({
-    message:`User details fetched successfully`,
-    user
-  })
-
   if(!user){
     return res.status(401).json({
       message:`unauthorized access`
     })
   }
+
+  res.status(200).json({
+    message:`User details fetched successfully`,
+    user
+  })
 }
 
 async function logoutUser(req,res){

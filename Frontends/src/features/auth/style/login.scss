@@ -4,6 +4,16 @@
     align-items: center;
     min-height: 100vh;
 
+
+position: relative;
+background-image: url("/img.jpg");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+
+
+
+
     .form-container {
         display: flex;
         flex-direction: column;
@@ -11,6 +21,8 @@
         padding: 2rem;
         border-radius: 0.5rem;
         min-width: 300px;
+        border: 1px solid #cccccc95;
+        background-color: rgba(240, 248, 255, 0.075);
     }
 
     form {

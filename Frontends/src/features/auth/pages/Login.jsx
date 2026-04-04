@@ -1,12 +1,12 @@
+import React, { useState } from "react";
 import "../style/login.scss";
 import FormGroup from "../components/FormGroup";
 import { Link } from "react-router";
 import { useAuth } from "../hooks/useAuth";
-import { useState } from "react";
 import { useNavigate } from "react-router";
 
 const Login = () => {
-  const { loading, login } = useAuth();
+  const { loading, handleLogin } = useAuth();
 
   const navigate = useNavigate();
 
@@ -15,40 +15,34 @@ const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await login({ email, password });
+    await handleLogin({ email, password });
     navigate("/");
   }
 
   return (
     <main className="login-page">
+      <img src="/Frontends/public/background img.jpg" alt="" />
       <div className="form-container">
         <h1>Login</h1>
-
         <form onSubmit={handleSubmit}>
           <FormGroup
             value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            onChange={(e) => setEmail(e.target.value)}
             label="Email"
-            placeholder="Enter Email"
+            placeholder="Enter your email"
           />
-
           <FormGroup
             value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            onChange={(e) => setPassword(e.target.value)}
             label="Password"
-            placeholder="Enter password"
+            placeholder="Enter your password"
           />
-          <button className="button" type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
+          <button className="button" type="submit">
+            Login
           </button>
         </form>
-
         <p>
-          Don't have an account? <Link to="/register">Register</Link>
+          Don't have an account? <Link to="/register">Register here</Link>
         </p>
       </div>
     </main>

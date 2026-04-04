@@ -1,20 +1,23 @@
-import React from 'react'
-import { useAuth } from '../hooks/useAuth'
-import { useNavigate } from 'react-router'
+import { useAuth } from '../hooks/useAuth';
+import { Navigate } from 'react-router';
 
-const Protected = ({children}) => {
+const Protected = ({ children }) => {
+  const { user, loading } = useAuth();
 
-const {user,loading} = useAuth()
-const navigate = useNavigate()
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="spinner" />
+        <span>Loading Moodify...</span>
+      </div>
+    );
+  }
 
-if(loading){
-  return <h1>Loading...</h1>
-}
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
-if(!user){
-  return navigate(`/login`)
-}
-  return children
-}
+  return children;
+};
 
-export default Protected
+export default Protected;
