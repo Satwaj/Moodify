@@ -25,7 +25,10 @@ const Register = () => {
   return (
     <main className="register-page">
       <div className="form-container">
-        <h1>Register</h1>
+        <h1>Create Account</h1>
+        <p className="auth-subtitle">
+          Join Moodify and build your vibe playlist.
+        </p>
         <form onSubmit={handleSubmit}>
           <FormGroup
             value={username}
@@ -38,18 +41,20 @@ const Register = () => {
             onChange={(e) => setEmail(e.target.value)}
             label="Email"
             placeholder="Enter your email"
+            type="email"
           />
           <FormGroup
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             label="Password"
             placeholder="Enter your password"
+            type="password"
           />
-          <button className="button" type="submit">
-            Register
+          <button className="button" type="submit" disabled={loading}>
+            {loading ? "Creating account..." : "Register"}
           </button>
         </form>
-        <p>
+        <p className="auth-switch">
           Already have an account? <Link to="/login">Login here</Link>
         </p>
       </div>

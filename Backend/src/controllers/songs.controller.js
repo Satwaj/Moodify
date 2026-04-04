@@ -48,9 +48,21 @@ async function getSongs(req,res){
 
   const {mood} = req.query
 
-  const song = await songModel.findOne(
-    {mood}
-  )  
+  if (!mood) {
+    const songs = await songModel.find({}).sort({ createdAt: -1 })
+
+    return res.status(200).json({
+      message:"Songs fetched successfully",
+      songs
+    })
+  }
+
+  const randomSongs = await songModel.aggregate([
+    { $match: { mood } },
+    { $sample: { size: 1 } }
+  ])
+
+  const song = randomSongs[0] || null
 
   res.status(200).json({
     message:"Songs fetched successfully",

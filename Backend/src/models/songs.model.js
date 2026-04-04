@@ -21,7 +21,7 @@ const songsSchema = new mongoose.Schema({
       message:"Enum this is"
     }
   }
-})
+},{ timestamps: true })
 
 const songsModel = mongoose.model("songs",songsSchema)
 

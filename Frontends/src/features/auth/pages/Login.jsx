@@ -21,27 +21,29 @@ const Login = () => {
 
   return (
     <main className="login-page">
-      <img src="/Frontends/public/background img.jpg" alt="" />
       <div className="form-container">
-        <h1>Login</h1>
+        <h1>Welcome Back</h1>
+        <p className="auth-subtitle">Sign in and continue your mood journey.</p>
         <form onSubmit={handleSubmit}>
           <FormGroup
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             label="Email"
             placeholder="Enter your email"
+            type="email"
           />
           <FormGroup
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             label="Password"
             placeholder="Enter your password"
+            type="password"
           />
-          <button className="button" type="submit">
-            Login
+          <button className="button" type="submit" disabled={loading}>
+            {loading ? "Signing in..." : "Login"}
           </button>
         </form>
-        <p>
+        <p className="auth-switch">
           Don't have an account? <Link to="/register">Register here</Link>
         </p>
       </div>

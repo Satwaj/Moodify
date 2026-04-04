@@ -140,6 +140,11 @@
             background: rgba(255, 255, 255, 0.06);
         }
 
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         &--play {
             width: 48px;
             height: 48px;

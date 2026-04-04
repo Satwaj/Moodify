@@ -33,7 +33,10 @@ const Player = () => {
     if (isPlaying) {
       audio.pause();
     } else {
-      audio.play();
+      audio.play().catch((error) => {
+        console.error("Audio play failed:", error);
+        setIsPlaying(false);
+      });
     }
   };
 
@@ -51,8 +54,12 @@ const Player = () => {
   };
 
   const handleLoadedMetadata = () => {
-    setDuration(audioRef.current.duration);
-    setCurrentTime(audioRef.current.currentTime || 0);
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.playbackRate = speed;
+    audio.volume = isMuted ? 0 : volume;
+    setDuration(audio.duration);
+    setCurrentTime(audio.currentTime || 0);
   };
 
   const handleProgressClick = (e) => {
