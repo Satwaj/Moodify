@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSong } from "../Hooks/useSongs";
 import "./player.scss";
 
@@ -18,6 +18,7 @@ const Player = () => {
 
   const audioRef = useRef(null);
   const progressRef = useRef(null);
+  const previousSongUrlRef = useRef(song?.url || null);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -26,6 +27,25 @@ const Player = () => {
   const [volume, setVolume] = useState(1);
   const [showSpeed, setShowSpeed] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !song?.url) return;
+
+    const previousUrl = previousSongUrlRef.current;
+    previousSongUrlRef.current = song.url;
+
+    if (!previousUrl || previousUrl === song.url) return;
+
+    setCurrentTime(0);
+    setDuration(0);
+    audio.currentTime = 0;
+
+    audio.play().catch((error) => {
+      console.error("Audio play failed:", error);
+      setIsPlaying(false);
+    });
+  }, [song?.url]);
 
   const togglePlay = () => {
     const audio = audioRef.current;
