@@ -2,16 +2,50 @@ import React from 'react'
 import "../style/register.scss"
 import FormGroup from "../components/FormGroup"
 import { Link } from "react-router"
+import { useAuth } from "../hooks/useAuth"
+import { useState } from "react"
+import { useNavigate } from "react-router"
 
 const Register = () => {
+
+  const {loading , register} = useAuth()
+
+  const navigate = useNavigate()
+
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  async function handleSubmit(e){
+    e.preventDefault()
+    await register({email,username,password})
+    navigate("/")
+  }
+
+
+
   return (
     <main className='register-page'>  
       <div className="form-container">  
         <h1>Register</h1>
-        <form>
-          <FormGroup label="Username" placeholder="Enter  username" />
-          <FormGroup label="Email" placeholder="Enter  Email" />
-          <FormGroup label="Password" placeholder="Enter  password" />  
+        <form onSubmit={handleSubmit}>
+          <FormGroup
+            value={username}
+            onChange={((e)=>{setUsername(e.target.value)})} 
+           label="Username" 
+           placeholder="Enter  username" />
+
+          <FormGroup
+           value={email}
+           onChange={((e)=>{setEmail(e.target.value)})} 
+           label="Email"
+            placeholder="Enter  Email" />
+
+          <FormGroup
+           value={password}
+           onChange={((e)=>{setPassword(e.target.value)})} 
+           label="Password"
+            placeholder="Enter  password" />  
 
           <button className="button" type="submit">Register</button>
         </form>
