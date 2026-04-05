@@ -100,7 +100,13 @@
 }
 
 @media (max-width: 520px) {
+  .user-menu__trigger {
+    width: 44px;
+    height: 44px;
+  }
+
   .user-menu__panel {
-    width: min(88vw, 240px);
+    width: min(92vw, 260px);
+    top: calc(100% + 0.6rem);
   }
 }

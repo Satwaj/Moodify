@@ -1,23 +1,25 @@
 .player {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #1a1a1a;
-    border-top: 1px solid #333;
-    padding: 12px 24px;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    background: rgba(26, 26, 26, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
     display: flex;
     align-items: center;
     gap: 24px;
     z-index: 100;
-    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(16px);
 
     /* ── Song Info ── */
     &__info {
         display: flex;
         align-items: center;
         gap: 12px;
-        min-width: 200px;
+        min-width: 0;
         flex: 0 0 auto;
     }
 
@@ -63,6 +65,7 @@
         align-items: center;
         gap: 10px;
         flex: 1;
+        min-width: 0;
     }
 
     &__time {
@@ -116,8 +119,10 @@
     &__controls {
         display: flex;
         align-items: center;
+        justify-content: flex-end;
         gap: 8px;
         flex: 0 0 auto;
+        flex-wrap: wrap;
     }
 
     &__btn {
@@ -198,8 +203,9 @@
     &__speed-menu {
         position: absolute;
         bottom: calc(100% + 8px);
-        left: 50%;
-        transform: translateX(-50%);
+        left: auto;
+        right: 0;
+        transform: none;
         background: #2a2a2a;
         border: 1px solid #444;
         border-radius: 10px;
@@ -282,22 +288,64 @@
 /* Responsive: stack on smaller screens */
 @media (max-width: 640px) {
     .player {
+        left: 0.5rem;
+        right: 0.5rem;
+        bottom: 0.5rem;
         flex-wrap: wrap;
-        gap: 12px;
-        padding: 10px 16px;
+        gap: 10px;
+        padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+        border-radius: 18px;
 
         &__info {
-            min-width: unset;
+            width: 100%;
             flex: 1;
+        }
+
+        &__poster {
+            width: 44px;
+            height: 44px;
+        }
+
+        &__title {
+            max-width: calc(100vw - 144px);
         }
 
         &__progress-wrap {
             order: 3;
             width: 100%;
+            gap: 8px;
+        }
+
+        &__controls {
+            width: 100%;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        &__btn {
+            padding: 7px;
+        }
+
+        &__btn--play {
+            width: 44px;
+            height: 44px;
+        }
+
+        &__btn--speed {
+            min-width: 42px;
+        }
+
+        &__btn--skip {
+            gap: 2px;
+            font-size: 0.72rem;
+        }
+
+        &__volume {
+            gap: 4px;
         }
 
         &__volume-slider {
-            width: 60px;
+            width: 58px;
         }
     }
 }
